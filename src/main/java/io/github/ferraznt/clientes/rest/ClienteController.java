@@ -9,10 +9,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin("http://localhost:4200")
 public class ClienteController {
 
     private ClienteRepository clienteRepository;
@@ -59,5 +61,10 @@ public class ClienteController {
                     cliente.setNome(clienteAtualizado.getNome());
                     return clienteRepository.save(clienteAtualizado);
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado."));
+    }
+
+    @GetMapping
+    public List<Cliente> obterTodos(){
+        return clienteRepository.findAll();
     }
 }
