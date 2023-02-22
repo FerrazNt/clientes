@@ -12,10 +12,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/servicos-prestado")
-@CrossOrigin("http://localhost:4200")
+/* @CrossOrigin("http://localhost:4200") -- Foi subistituiído pela configuração correta */
 public class ServicoPrestadorController {
 
     private final ServicoPrestadoRepository repository;
@@ -45,11 +46,19 @@ public class ServicoPrestadorController {
 
         ServicoPrestado servicoPrestado = new ServicoPrestado();
         servicoPrestado.setDescricao(dto.getDescricao());
-        servicoPrestado.setDateServico(data);
+        servicoPrestado.setDataServico(data);
         servicoPrestado.setCliente(cliente);
         servicoPrestado.setValor(bigDecimalConverter.converter(dto.getValor()));
 
         return repository.save(servicoPrestado);
+    }
+
+    @GetMapping("/buscar")
+    public List<ServicoPrestado> pesuisarServico(
+                @RequestParam(value = "nome",defaultValue = "", required = false) String nome,
+                @RequestParam(value = "mes", required = false) Integer mes
+                ){
+        return repository.findByNomeClienteAndMes("%"+ nome + "%", mes);
 
     }
 }

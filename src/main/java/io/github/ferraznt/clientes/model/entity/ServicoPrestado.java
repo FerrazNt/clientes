@@ -36,6 +36,6 @@ public class ServicoPrestado {
 
     @Column
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dateServico;
+    private LocalDate dataServico;
 
 }

@@ -7,14 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")
-@CrossOrigin("http://localhost:4200")
+/* @CrossOrigin("http://localhost:4200") -- Foi subistituiído pela configuração correta */
 public class ClienteController {
 
     private ClienteRepository clienteRepository;
