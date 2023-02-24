@@ -16,3 +16,8 @@ spring:
 server:
   error:
     include-message: always
+
+security:
+  oauth2:
+    client:
+      scope: password
