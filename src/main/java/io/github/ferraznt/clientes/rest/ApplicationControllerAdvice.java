@@ -3,6 +3,7 @@ package io.github.ferraznt.clientes.rest;
 import io.github.ferraznt.clientes.rest.exception.ApiErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,9 +31,17 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity handleResponseStatusException(ResponseStatusException ex){
-        String mensagemErro = ex.getMessage();
+        String mensagemErro = ex.getReason(); // Usando getReason para melhorar as mensagens para o Client
         HttpStatus codigoStatus = ex.getStatus();
         ApiErrors apiErrors = new ApiErrors(mensagemErro);
+        return new ResponseEntity(apiErrors, codigoStatus );
+    }
+
+    @ExceptionHandler(InvalidGrantException.class)
+    public ResponseEntity handleResponseStatusException(InvalidGrantException ige){
+        String mensagemErro = ige.getMessage(); // Usando getReason para melhorar as mensagens para o Client
+        HttpStatus codigoStatus = HttpStatus.BAD_REQUEST;
+        ApiErrors apiErrors = new ApiErrors("Login Inválido");
         return new ResponseEntity(apiErrors, codigoStatus );
     }
 }

@@ -21,3 +21,5 @@ security:
   oauth2:
     client:
       scope: password
+  jwt:
+    signing-key: MSAtIE7Do28gw6kgYnVycm8gcXVlbSBhY2VpdGEgcXVlIG7Do28gc2FiZS4=
