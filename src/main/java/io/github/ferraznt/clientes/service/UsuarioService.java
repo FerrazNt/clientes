@@ -41,7 +41,5 @@ public class UsuarioService implements UserDetailsService {
                 .password(usuario.getPassword())
                 .roles("USER")
                 .build();
-
-
     }
 }
